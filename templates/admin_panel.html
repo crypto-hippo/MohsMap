@@ -1,0 +1,127 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+
+        <title>Physician Map</title>
+        <meta name="description" content="Surgeon Finder">
+        <meta name="author" content="SitePoint">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="static/css/index.css?v={{ now() }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.css" integrity="sha256-BbA16MRVnPLkcJWY/l5MsqhyOIQr7OpgUAkYkKVvYco=" crossorigin="anonymous" />
+    </head>
+
+    <body>
+        <div class="header-push"></div>
+
+        <nav class="navbar navbar-light bg-light fixed-top">
+            <img id="map_img" src="static/img/map.png" alt="">
+            <span class="navbar-brand mb-0 h1">
+                <img id="logo" src="static/img/sm_logo.png" alt="">
+                <span class="navbar-brand-title">
+                    MohsMap Admin Panel
+                </span>        
+            </span>
+            <a href="/logout" class="nav-link" style="color: white">Logout</a>
+        </nav>
+
+        <div class="container-fluid">
+           <div class="row">
+                <div class="col-12">
+                    <input id="search" type="text" class="form-control" placeholder="Enter last name" style="margin-top: 20px">
+                </div>
+           </div> 
+        </div>
+        
+        <div class="results-container">
+            <div class="container-fluid">
+                <!-- ko foreach: results -->
+                    <div class="row result-surgeon-row" data-bind="click: $root.load_surgeons">
+                        <div class="col-12 col-md-6">
+                            <div data-bind="text: $data.title"></div>
+                        </div>
+                    </div>
+                <!-- /ko -->
+            </div>
+        </div>
+
+        <div class="results-container">
+            <div class="container-fluid">
+                <!-- ko foreach: surgeons_editable -->
+                    <div class="row result-surgeon-row" data-bind="click: $root.start_edit_surgeon">
+
+                        <div class="col-1">
+                            <div data-bind="text: $data.id"></div>
+                        </div>
+
+                        <div class="col-2 text-left">
+                            <div data-bind="text: $data.title"></div>
+                        </div>
+
+                        <div class="col-3 text-left">
+                            <div data-bind="text: $data.latlng" style="overflow: hidden"></div>
+                        </div>
+
+                        <div class="col-1 text-right">
+                            <div data-bind="text: $data.zipcode"></div>
+                        </div>
+
+                        <div class="col-2">
+                            <div data-bind="text: $data.phone"></div>
+                        </div>
+
+                        <div class="col-3 text-right">
+                            <button type="button" class="btn btn-info" data-bind="click: $root.edit_surgeon">Edit</button>
+                            <button type="button" class="btn btn-danger" data-bind="click: $root.delete_surgeon">Delete</button>
+                        </div>
+
+                    </div>
+                <!-- /ko -->
+
+                <!-- ko foreach: surgeons_editable_deleted -->
+                    <div class="row result-surgeon-row surgeon-deleted" data-bind="click: $root.start_edit_surgeon">
+
+                        <div class="col-1">
+                            <div data-bind="text: $data.id"></div>
+                        </div>
+
+                        <div class="col-2 text-left">
+                            <div data-bind="text: $data.title"></div>
+                        </div>
+
+                        <div class="col-3 text-left">
+                            <div data-bind="text: $data.latlng" style="overflow: hidden"></div>
+                        </div>
+
+                        <div class="col-1 text-right">
+                            <div data-bind="text: $data.zipcode"></div>
+                        </div>
+
+                        <div class="col-2">
+                            <div data-bind="text: $data.phone"></div>
+                        </div>
+
+                        <div class="col-3 text-right">
+                            <button type="button" class="btn btn-info" data-bind="click: $root.edit_surgeon">Edit</button>
+                            <button type="button" class="btn btn-info" data-bind="click: $root.restore_surgeon">Restore</button>
+                            
+                        </div>
+
+                    </div>
+                <!-- /ko -->
+
+            </div>
+        </div>
+
+        {% include 'edit_surgeon_modal.html' %}
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-debug.js"></script>
+        <script src="static/js/admin_view_model.js?v={{ now() }}"></script>
+
+    </body>
+</html>

@@ -1,0 +1,39 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+
+        <title>Physician Map</title>
+        <meta name="description" content="Surgeon Finder">
+        <meta name="author" content="SitePoint">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="static/css/index.css?v={{ now() }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.css" integrity="sha256-BbA16MRVnPLkcJWY/l5MsqhyOIQr7OpgUAkYkKVvYco=" crossorigin="anonymous" />
+
+    </head>
+
+    <body>
+        <div class="header-push"></div>
+        <nav class="navbar navbar-light bg-light fixed-top">
+            <img id="map_img" src="static/img/map.png" alt="">
+            <span class="navbar-brand mb-0 h1">
+                <img id="logo" src="static/img/sm_logo.png" alt="">
+                <span class="navbar-brand-title">
+                    MohsMap Admin
+                </span>        
+            </span>
+        </nav>
+        <div class="container-fluid text-center">
+            <div class="row">
+                
+                <form method="post" action="/admin_login" style="width: 100%">
+                    <div class="col-6" style="margin: 0 auto; margin-top: 20px">
+                        <input type="password" class="form-control" name="password" placeholder="Enter password">
+                        <button class="btn btn-primary form-control">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

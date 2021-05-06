@@ -1,0 +1,136 @@
+
+<div class="modal fade" id="edit-surgeon-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" data-bind="with: current_surgeon">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="surgeon-title" data-bind="text: title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="container-fluid">
+
+                    <div class="row editable-value">
+                        <div class="col-12">
+                            <label for="edit-title" class="label label-default">Title</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" id="edit-title" class="form-control" data-bind="attr: {value: title}">
+                        </div>
+                        <div class="col-4">
+                            <button type="button" class="btn btn-info" data-bind="click: $root.update_title($data)">Update Title</button>
+                        </div>
+                    </div>
+
+                    <div class="row editable-value">
+                        <div class="col-12">
+                            <label for="edit-phone" class="label label-default" style="margin-top: 15px">Phone</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" id="edit-phone" class="form-control" data-bind="attr: {value: phone}">
+                        </div>
+                        <div class="col-4">
+                            <button type="button" class="btn btn-info" data-bind="click: $root.update_phone($data)">Update Phone</button>
+                        </div>
+                    </div>
+
+                    <div class="row editable-value" style="margin-top: 15px">
+                        <div class="col-12">
+                            <label class="label label-default">Training</label>
+                        </div>
+
+                        <!-- ko foreach: training -->
+                            <div class="col-12">
+                                <input type="text" class="form-control edit-training" data-bind="attr: {value: $data}">
+                            </div>
+                        <!-- /ko -->
+
+                        <div class="col-12" style="margin-top: 20px">
+                            <button type="button" class="btn btn-info form-control" data-bind="click: $root.update_training($data)">Update Training</button>
+                        </div>
+                        
+                    </div>
+
+                    <div class="row editable-value" style="margin-top: 20px;">
+                        <div class="col-12">
+                            <label for="edit-latlng" class="label label-default">Lat Lng</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" id="edit-latlng" class="form-control" data-bind="attr: {value: latlng}">
+                        </div>
+                        <div class="col-4">
+                            <button type="button" class="btn btn-info" data-bind="click: $root.update_latlng">Update Lat Lng</button>
+                        </div>
+                    </div>
+
+                    <div id="locations-row" class="row editable-value" >
+
+                        <!-- ko foreach: locations -->
+                            <div class="col-12 location-col">
+                                <label class="label label-default" style="margin-top: 20px">Location Title</label>
+                                
+                                <input type="text" id="" class="form-control edit-location-title" data-bind="value: $data.location_title">
+
+                                <label for="edit-locations" class="label label-default" style="margin-top: 15px">Address</label>
+
+                                <!-- ko foreach: $data.address -->
+                                    <input type="text" class="form-control edit-location-address" data-bind="value: $data">
+
+                                <!-- /ko -->
+                            </div>
+                        <!-- /ko -->
+                        
+                        <div class="col-12" style="margin-top: 20px">
+                            <button type="button" class="btn btn-info form-control" data-bind="click: $root.update_locations">Update Locations</button>
+                        </div>
+                    </div>
+
+                    <div class="row editable-value" style="margin-top: 20px">
+                        <div class="col-12">
+                            <label for="edit-languages" class="label label-default">Languages</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" id="edit-languages" class="form-control" data-bind="attr: {value: languages}">
+                        </div>
+                        <div class="col-3">
+                            <button type="button" class="btn btn-info" data-bind="click: $root.update_languages">Update Languages</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div style="position: absolute; left: 15px;">
+                    <input type="checkbox" id="the_checkbox" onclick="checkbox_clicked()"> Mark this surgeon as uneditable by the crawler
+                    <!-- <button class="btn btn-primary">Update</button> -->
+                </div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-primary btn-update-surgeon form-control">Update Surgeon</button> -->
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function checkbox_clicked() {
+        var doit = $("#the_checkbox")[0]
+        var surgeon_id = view_model_instance.current_surgeon().id;
+
+        if (doit.checked) {
+            $.post("/update_checkbox", {checked: 1, surgeon_id}, function(resp) {
+                console.log(resp)
+            })
+        } else {
+            $.post("/update_checkbox", {checked: 0, surgeon_id}, function(resp) {
+                console.log(resp)
+            })    
+        }
+
+    }
+</script>

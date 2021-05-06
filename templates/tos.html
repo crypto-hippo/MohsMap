@@ -1,0 +1,119 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+
+        <title>Physician Map</title>
+        <meta name="description" content="Surgeon Finder">
+        <meta name="author" content="SitePoint">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="static/css/index.css?v={{ now() }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.css" integrity="sha256-BbA16MRVnPLkcJWY/l5MsqhyOIQr7OpgUAkYkKVvYco=" crossorigin="anonymous" />
+
+    </head>
+
+    <body>
+        <div class="header-push"></div>
+        <nav class="navbar navbar-light bg-light fixed-top">
+            <img id="map_img" src="static/img/map.png" alt="">
+            <span class="navbar-brand mb-0 h1">
+                <img id="logo" src="static/img/sm_logo.png" alt="">
+                
+                <span class="navbar-brand-title">
+                    MohsMap
+                </span>  
+                
+                <span class="header-title">
+                    Find a fellowship-trained Mohs Surgeon
+                </span> 
+            </span>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-lg fa-bars"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="navbar-nav mr-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Search <span class="sr-only">(current)</span></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/why_acms">Why an ACMS Surgeon</a>
+                    </li>
+
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="/">Saved Surgeons</a>
+                    </li> -->
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about_us">About Us</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact_us">Contact Us</a>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/tos">Terms Of Service</a>
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+
+        <div class="container-fluid detail-page-container">
+            <div class="row">
+                <div class="col-12 text-left">
+                    <div class="detail-page-title">TERMS OF SERVICE</div>
+                </div>            
+            </div>
+            
+            <div class="row">
+                <div class="col-12">
+                    <div class="mohsmap-title">
+                        <h3>MohsMap*</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="last-updated">Last Updated: 03/12/2018</div>
+                </div>
+            </div>
+            
+            <div class="row page-detail-content">
+                <div class="col-12">
+
+		    <!-- MARK EDIT -->
+
+                    These terms of service ("Terms") apply to your access and use of MohsMap (the "Service").
+                    <br>
+                    <br>
+                    Please read them carefully.
+                    <br>
+                    <br>
+                    Accepting these terms.
+                    <br>
+                    If you access or use the Service, it means you agree to be bound by all of the terms below. So, before you use the Service, please read all of the terms. If you don't agree to all of the terms below, please do not use the Service. Also, if a term does not make sense to you, please let us know by emailing help@Mohsmap.com.
+                    <br>
+                    <br>
+                    Changes to these Terms.
+                    <br>
+                    We reserve the right to modify these Terms at any time. For instance, we may need to change these Terms if we come out with a new feature or for some other reason.
+                </div>
+            </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="static/js/index.js?v={{ now() }}"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD49xbDqBWMU0LL4LUfjVolWsUdPP_Ym0E&callback=initMap" async="" defer=""></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    </body>
+</html>

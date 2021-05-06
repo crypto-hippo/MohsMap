@@ -1,0 +1,62 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+
+        <title>Physician Map</title>
+        <meta name="description" content="Surgeon Finder">
+        <meta name="author" content="SitePoint">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="/static/css/index.css?v={{ now() }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.css" integrity="sha256-BbA16MRVnPLkcJWY/l5MsqhyOIQr7OpgUAkYkKVvYco=" crossorigin="anonymous" />
+    </head>
+
+    <body>
+        <div class="header-push"></div>
+
+        <nav class="navbar navbar-light bg-light fixed-top">
+            <img id="map_img" src="/static/img/map.png" alt="">
+            <span class="navbar-brand mb-0 h1">
+                <img id="logo" src="/static/img/sm_logo.png" alt="">
+                <span class="navbar-brand-title">
+                    MohsMap Admin Panel
+                </span>        
+            </span>
+            <a href="/logout" class="nav-link" style="color: white">Logout</a>
+        </nav>
+
+        <nav class="navbar navbar-dark bg-dark fixed-top pages-nav">
+            <ul class="">
+                
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="/admin_panel/search">Search <span class="sr-only">(current)</span></a>
+                </li> -->
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="/admin_panel/why_acms">Why an ACMS Surgeon</a>
+                </li>
+
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="/">Saved Surgeons</a>
+                </li> -->
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin_panel/about_us">About Us</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin_panel/contact_us">Contact Us</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin_panel/tos">Terms Of Service</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            {{ content_editable }}
+        </div>
+    </body>
+</html>

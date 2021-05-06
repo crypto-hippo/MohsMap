@@ -1,0 +1,36 @@
+var current_surgeons = []
+
+            // if (data.length > 0) {
+            //     info_windows.forEach(iw => {
+            //         iw.close();
+            //     })
+            
+            //     markerClusterer.clearMarkers();
+            //     markerClusterer.addMarkers(all_markers);
+            //     // markerClusterer.setMaxZoom(mapOptions.zoom);
+            
+            //     map.setCenter(mapOptions.center);
+            //     map.setZoom(mapOptions.zoom);
+            
+            //     if ($(".results-container").find(".fas").hasClass("fa-caret-up"))
+            //         show_hide_results(null);
+
+
+            //     data.forEach(surgeon => {
+            //         if (!surgeon_exists(surgeon, current_surgeons)) {
+            //             current_surgeons.push(surgeon); 
+            //         }
+            //     })
+
+            //     var markers = current_surgeons.map(surgeon => {
+            //         return create_marker(surgeon, map);
+            //     })
+
+            //     markerClusterer.clearMarkers();
+            //     markerClusterer.addMarkers(markers);
+
+            //     var cluster = markerClusterer.clusters_[0];
+            
+            //     map.setCenter(cluster.getCenter())
+            //     map.fitBounds(cluster.getBounds())
+            //     map.setZoom(8);
