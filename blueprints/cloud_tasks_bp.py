@@ -1,5 +1,6 @@
-import traceback
 from flask import Blueprint, request, jsonify
+from service.gcloud_storage_service import GcloudStorageService
+import traceback
 import logging
 
 cloud_tasks_bp = Blueprint('cloud_tasks_bp', __name__, url_prefix='/cloud_tasks')
@@ -12,14 +13,12 @@ def start_crawl():
     @return:
     """
     try:
-        task_json = request.get_json()
-        zipcode = task_json.get("next_zip_code")
-        if zipcode:
-            logging.info(f"Checking for new surgeons under zip: {zipcode}")
-        else:
-            logging.info(f"No zipcode found: starting with the first one")
+        logging.info("[+] Fetching zip_codes.txt from Google Cloud Storage")
+        first_zip_code = GcloudStorageService.get_first_zip_code()
+        logging.info(f"[+] Starting crawl with first zipcode: {first_zip_code}")
     except Exception:
         logging.error(traceback.format_exc())
+        return "error", 500
 
 
 @cloud_tasks_bp.route("/continue_crawl")
