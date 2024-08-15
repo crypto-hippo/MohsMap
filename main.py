@@ -5,7 +5,7 @@ from physmap_logger import *
 from middleware import *
 from flask_cors import CORS
 from google.cloud import firestore
-from utility import load_blueprints
+from utility import load_blueprints, setup_google_cloud_logging
 from surgeon_crawler import crawl_by_zip
 import logging
 import json
@@ -14,6 +14,7 @@ import os
 import traceback
 
 client = firestore.Client()
+setup_google_cloud_logging()
 
 
 def create_flask_app():

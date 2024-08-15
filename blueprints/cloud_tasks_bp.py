@@ -15,15 +15,17 @@ def start_crawl():
     try:
         logging.info("[+] Fetching zip_codes.txt from Google Cloud Storage")
         first_zip_code = GcloudStorageService.get_first_zip_code()
-        logging.info(f"[+] Starting crawl with first zipcode: {first_zip_code}")
+        logging.info(f"[+] Creating gcloud http task with first zipcode: {first_zip_code}")
+        return "success"
     except Exception:
         logging.error(traceback.format_exc())
         return "error", 500
 
 
-@cloud_tasks_bp.route("/continue_crawl")
+@cloud_tasks_bp.route("/continue_crawl/dfc2d27b2dbb4417926d8e396737a76a")
 def continue_crawl():
     try:
-        pass
+        zipcode_json = request.get_json()
+        next_zipcode = zipcode_json["zipcode"]
     except Exception:
-        print(traceback.format_exc())
+        logging.error(traceback.format_exc())
