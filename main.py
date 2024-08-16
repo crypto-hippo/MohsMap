@@ -1,17 +1,10 @@
-from flask import Flask, session, render_template, request, jsonify, abort, redirect, url_for
+from flask import Flask, render_template
 from config import config
 from jinja_vars import jinja_vars
-from physmap_logger import *
-from middleware import *
-from flask_cors import CORS
 from google.cloud import firestore
 from utility import load_blueprints, setup_google_cloud_logging
-from surgeon_crawler import crawl_by_zip
-import logging
-import json
 import jinja2
-import os 
-import traceback
+import os
 
 client = firestore.Client()
 setup_google_cloud_logging()

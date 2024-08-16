@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from service.gcloud_storage_service import GcloudStorageService
+from service.surgeon_crawler import SurgeonCrawler
 import traceback
 import logging
 
@@ -24,8 +25,15 @@ def start_crawl():
 
 @cloud_tasks_bp.route("/continue_crawl/dfc2d27b2dbb4417926d8e396737a76a")
 def continue_crawl():
+    """When the Gcloud http tasks get run they will run this api function passing in a zipcode
+    Creates a new http task after the zipcode is done being crawled with the next zipcode in the dataset
+    @return:
+    """
     try:
         zipcode_json = request.get_json()
         next_zipcode = zipcode_json["zipcode"]
+        crawler = SurgeonCrawler(next_zipcode)
+        surgeon_data = crawler.crawl_surgeons()
+
     except Exception:
         logging.error(traceback.format_exc())
