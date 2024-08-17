@@ -36,6 +36,10 @@ def continue_crawl():
         crawler = SurgeonCrawler(next_zipcode)
         surgeon_data = crawler.crawl_surgeons()
         for surgeon in surgeon_data:
-
+            if FirestoreService.surgeon_exists(surgeon):
+                print(f"Surgeon exists: {surgeon["name_text"]}. Continue...")
+            else:
+                print(f"Surgeon does not exists: {surgeon["name_text"]}. Inserting...")
+        
     except Exception:
         logging.error(traceback.format_exc())
