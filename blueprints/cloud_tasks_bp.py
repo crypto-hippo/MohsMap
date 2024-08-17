@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from service.gcloud_storage_service import GcloudStorageService
 from service.surgeon_crawler import SurgeonCrawler
 from service.firestore_service import FirestoreService
+from service.gcloud_tasks_service import GcloudTasksService
 import traceback
 import logging
 
@@ -18,6 +19,7 @@ def start_crawl():
         logging.info("[+] Fetching zip_codes.txt from Google Cloud Storage")
         first_zip_code = GcloudStorageService.get_first_zip_code()
         logging.info(f"[+] Creating gcloud http task with first zipcode: {first_zip_code}")
+        GcloudTasksService.create_zipcode_task(first_zip_code, 1)
         return "success"
     except Exception:
         logging.error(traceback.format_exc())
@@ -32,14 +34,17 @@ def continue_crawl():
     """
     try:
         zipcode_json = request.get_json()
-        next_zipcode = zipcode_json["zipcode"]
-        crawler = SurgeonCrawler(next_zipcode)
+        current_zipcode = zipcode_json["zipcode"]
+        crawler = SurgeonCrawler(current_zipcode)
         surgeon_data = crawler.crawl_surgeons()
         for surgeon in surgeon_data:
             if FirestoreService.surgeon_exists(surgeon):
                 print(f"Surgeon exists: {surgeon["name_text"]}. Continue...")
             else:
                 print(f"Surgeon does not exists: {surgeon["name_text"]}. Inserting...")
-        
+                FirestoreService.insert_surgeon(surgeon)
+        next_zipcode = GcloudStorageService.get_next_zipcode(current_zipcode)
+        if next_zipcode:
+            GcloudTasksService.create_zipcode_task(next_zipcode, 5)
     except Exception:
         logging.error(traceback.format_exc())
