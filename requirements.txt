@@ -14,3 +14,4 @@ google-cloud-tasks==2.16.4
 google-cloud-storage
 openai==1.35.13
 beautifulsoup4==4.12.3
+nltk

@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from service.gcloud_storage_service import GcloudStorageService
 from service.surgeon_crawler import SurgeonCrawler
+from service.firestore_service import FirestoreService
 import traceback
 import logging
 
@@ -34,6 +35,7 @@ def continue_crawl():
         next_zipcode = zipcode_json["zipcode"]
         crawler = SurgeonCrawler(next_zipcode)
         surgeon_data = crawler.crawl_surgeons()
+        for surgeon in surgeon_data:
 
     except Exception:
         logging.error(traceback.format_exc())
