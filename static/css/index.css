@@ -4,6 +4,10 @@ html, body {
     margin: 0;
 }
 
+body {
+    overflow: hidden;
+}
+
 @font-face {
     font-family: GaramondPremrPro;
     src: url("/static/fonts/GaramondPremrPro.otf") format("opentype");

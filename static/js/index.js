@@ -13,11 +13,13 @@ async function initMap() {
   map = new Map(document.getElementById("map"), map_options);
 }
 
-
-
 initMap();
 
-
+fetch(`{document.URL}/get_surgeons`).then(resp => {
+    resp.json().then(result => {
+        console.log(result);
+    })
+})
 
 
 //

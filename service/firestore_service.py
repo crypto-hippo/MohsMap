@@ -24,4 +24,12 @@ class FirestoreService:
     def insert_surgeon(cls, surgeon):
         cls.surgeons.add(surgeon)
 
+    @classmethod
+    def get_all_surgeons(cls):
+        surgeons = cls.surgeons.stream()
+        surgeons = [
+            {"document_id": s.id, **s.to_dict()} for s in surgeons
+        ]
+        return surgeons
+
 
