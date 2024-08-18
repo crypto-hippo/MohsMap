@@ -26,7 +26,7 @@ def start_crawl():
         return "error", 500
 
 
-@cloud_tasks_bp.route("/continue_crawl/dfc2d27b2dbb4417926d8e396737a76a")
+@cloud_tasks_bp.route("/continue_crawl/dfc2d27b2dbb4417926d8e396737a76a", methods=["POST"])
 def continue_crawl():
     """When the Gcloud http tasks get run they will run this api function passing in a zipcode
     Creates a new http task after the zipcode is done being crawled with the next zipcode in the dataset
@@ -35,16 +35,25 @@ def continue_crawl():
     try:
         zipcode_json = request.get_json()
         current_zipcode = zipcode_json["zipcode"]
+        print(f"Fetching surgeons: {current_zipcode}")
         crawler = SurgeonCrawler(current_zipcode)
-        surgeon_data = crawler.crawl_surgeons()
+
+        try:
+            surgeon_data = crawler.crawl_surgeons()
+        except:
+            surgeon_data = []
+
         for surgeon in surgeon_data:
             if FirestoreService.surgeon_exists(surgeon):
-                print(f"Surgeon exists: {surgeon["name_text"]}. Continue...")
+                print(f"Surgeon exists: {surgeon['name_text']}. Continue...")
             else:
-                print(f"Surgeon does not exists: {surgeon["name_text"]}. Inserting...")
+                print(f"Surgeon does not exists: {surgeon['name_text']}. Inserting...")
                 FirestoreService.insert_surgeon(surgeon)
+
         next_zipcode = GcloudStorageService.get_next_zipcode(current_zipcode)
         if next_zipcode:
-            GcloudTasksService.create_zipcode_task(next_zipcode, 5)
+            GcloudTasksService.create_zipcode_task(next_zipcode, 1)
+        return "success"
     except Exception:
         logging.error(traceback.format_exc())
+        return "success"

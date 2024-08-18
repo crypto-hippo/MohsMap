@@ -81,7 +81,7 @@ class SurgeonCrawler:
         return city, state, zipcode
 
     def create_url(self) -> str:
-        url = f"https://www.mohscollege.org/find-a-surgeon/index.php?City=&State=&ZipCode={self.zipcode}&Distance=10&Country=&LastName=&Search=Search&page={str(self.page)}#directoryresultstop"
+        url = f"https://www.mohscollege.org/find-a-surgeon/index.php?City=&State=&ZipCode={self.zipcode}&Distance=100&Country=&LastName=&Search=Search&page={str(self.page)}#directoryresultstop"
         print(f"Fetching surgeons from url: {url}")
         return url
 

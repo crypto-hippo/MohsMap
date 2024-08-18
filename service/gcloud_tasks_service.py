@@ -14,6 +14,10 @@ class GcloudTasksService:
     tasks_client = tasks_v2.CloudTasksClient()
 
     @classmethod
+    def gen_uid(cls):
+        return uuid.uuid4().hex
+
+    @classmethod
     def get_tasks_parent(cls, queue_name):
         return cls.tasks_client.queue_path(project_id, gcloud_region, queue_name)
 
@@ -33,7 +37,7 @@ class GcloudTasksService:
         @param zipcode:
         @return:
         """
-        task_id = zipcode
+        task_id = f"{zipcode}-{cls.gen_uid()}"
         new_task = tasks_v2.Task()
         new_task.http_request = tasks_v2.HttpRequest()
         new_task.http_request.http_method = tasks_v2.HttpMethod.POST

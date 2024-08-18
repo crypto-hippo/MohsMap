@@ -4,7 +4,7 @@ from google.cloud.firestore_v1 import DocumentSnapshot, FieldFilter
 
 class FirestoreService:
 
-    client = firestore.Client()
+    client = firestore.Client(database='mohsmap')
     surgeons = client.collection("surgeons")
 
     @classmethod
