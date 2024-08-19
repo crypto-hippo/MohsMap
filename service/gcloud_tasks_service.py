@@ -12,6 +12,8 @@ import traceback
 
 class GcloudTasksService:
     tasks_client = tasks_v2.CloudTasksClient()
+    forwards_url = "https://mohsmap.uc.r.appspot.com/cloud_tasks/continue_crawl/dfc2d27b2dbb4417926d8e396737a76a"
+    backwards_url = "https://mohsmap.uc.r.appspot.com/cloud_tasks/continue_crawl_backwards/dfc2d27b2dbb4417926d8e396737a76a"
 
     @classmethod
     def gen_uid(cls):
@@ -31,9 +33,11 @@ class GcloudTasksService:
         return gcloud_task_timestamp
 
     @classmethod
-    def create_zipcode_task(cls, zipcode: str, minutes_from_now):
+    def create_zipcode_task(cls, zipcode: str, minutes_from_now, descending=False):
         """Accepts zipcode and the index of the zipcode within the zip_codes.txt inside gcloud storage
         Will use the zipcode as the task_id
+        @param descending:
+        @param minutes_from_now:
         @param zipcode:
         @return:
         """
@@ -41,7 +45,7 @@ class GcloudTasksService:
         new_task = tasks_v2.Task()
         new_task.http_request = tasks_v2.HttpRequest()
         new_task.http_request.http_method = tasks_v2.HttpMethod.POST
-        new_task.http_request.url = "https://mohsmap.uc.r.appspot.com/cloud_tasks/continue_crawl/dfc2d27b2dbb4417926d8e396737a76a"
+        new_task.http_request.url = cls.backwards_url if descending else cls.forwards_url
         new_task.http_request.headers = {"content-type": "application/json"}
         new_task.http_request.body = json.dumps({"zipcode": zipcode}).encode()
         new_task.name = cls.tasks_client.task_path(project_id, gcloud_region, zip_code_tasks_queue, task_id)

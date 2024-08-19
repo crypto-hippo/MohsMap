@@ -33,3 +33,18 @@ class GcloudStorageService:
             result = zipcodes[current_index + 1]
         return result
 
+    @classmethod
+    def get_last_zipcode(cls):
+        zipcodes = cls.download_zip_codes()
+        return zipcodes[-1]
+
+    @classmethod
+    def get_previous_zipcode(cls, zipcode):
+        zipcodes = cls.download_zip_codes()
+        index = zipcodes.index(zipcode)
+        if index == 0:
+            return None
+        else:
+            return zipcodes[index-1]
+
+
