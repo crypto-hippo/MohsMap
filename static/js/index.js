@@ -1,25 +1,51 @@
-let map;
+async function setup_map() {
+    const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
+    const { Map, InfoWindow } = await google.maps.importLibrary("maps");
 
-var map_options = {
-    center: {
-        lat: 38.755,
-        lng: -98.82
-    },
-    zoom: 4
-};
+    let map;
+    let marker_clusterer;
+    let markers = []
+    let map_options = get_map_options()
 
-async function initMap() {
-  const { Map } = await google.maps.importLibrary("maps");
-  map = new Map(document.getElementById("map"), map_options);
+    function get_map_options() {
+        return {
+            center: {
+                lat: 38.755,
+                lng: -98.82
+            },
+            zoom: 4,
+            mapId: "bruh"
+        };
+    }
+
+    async function get_surgeons() {
+        let resp = await fetch(`${document.URL}/surgeon/get`);
+        let surgeons = await resp.json();
+        return surgeons;
+    }
+
+    async function initMap() {
+        map = new Map(document.getElementById("map"), map_options);
+        let surgeons = await get_surgeons();
+        surgeons.forEach(s => {
+            let next_marker = new AdvancedMarkerElement({
+                map: map,
+                position: {lat: parseFloat(s.lat), lng: parseFloat(s.lng)},
+                title: s.name_text,
+              });
+            markers.push(next_marker);
+        })
+        marker_clusterer = new markerClusterer.MarkerClusterer({ markers, map });
+    }
+
+    initMap();
 }
 
-initMap();
+setup_map();
 
-fetch(`{document.URL}/get_surgeons`).then(resp => {
-    resp.json().then(result => {
-        console.log(result);
-    })
-})
+
+
+
 
 
 //
