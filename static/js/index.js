@@ -1,12 +1,18 @@
 async function setup_map() {
     const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
     const { Map, InfoWindow } = await google.maps.importLibrary("maps");
-
+    const base_url = "http://localhost:5000" || "https://mohsmap.uc.r.appspot.com"
     let map;
     let marker_clusterer;
     let markers = []
+    let surgeons = []
     let map_options = get_map_options()
 
+    const infoWindow = new google.maps.InfoWindow({
+        content: "",
+        disableAutoPan: true,
+    });
+    
     function get_map_options() {
         return {
             center: {
@@ -19,25 +25,71 @@ async function setup_map() {
     }
 
     async function get_surgeons() {
-        let resp = await fetch(`${document.URL}/surgeon/get`);
+        let resp = await fetch(`${base_url}/surgeon/get`);
         let surgeons = await resp.json();
         return surgeons;
     }
 
-    async function initMap() {
-        map = new Map(document.getElementById("map"), map_options);
-        let surgeons = await get_surgeons();
+    function create_popup_content(s) {
+        divs = "";
+        divs += `<div class="popup-title">${s.name_text}</div>`
+        s.location_divs.forEach(d => {
+            let new_div = `<div class="popup-data">${d}</div>`;
+            divs += new_div;
+        });
+        return divs;
+    }
+
+    function init_surgeon_markers() {
         surgeons.forEach(s => {
             let next_marker = new AdvancedMarkerElement({
                 map: map,
                 position: {lat: parseFloat(s.lat), lng: parseFloat(s.lng)},
                 title: s.name_text,
-              });
+            });
+            next_marker.addListener("click", () => {
+                let info_window_content = create_popup_content(s);
+                infoWindow.setContent(info_window_content);
+                infoWindow.open(map, next_marker);
+            });
+          
             markers.push(next_marker);
         })
         marker_clusterer = new markerClusterer.MarkerClusterer({ markers, map });
     }
 
+    window.reset_map = function() {
+        markers.forEach(m => {
+            m.setMap(null);
+        });
+        markers = []
+        map = new Map(document.getElementById("map"), map_options);
+        init_surgeon_markers();
+    }
+
+
+    window.search = async function() {
+        console.log("searching...")
+        let search_input = $("#search").val().trim();
+        console.log("search input", search_input)
+        if (search_input.length > 0) {
+            let search_results = await fetch(`${base_url}/surgeon/search`, {
+                "method": "post",
+                "headers": {"content-type": "application/json"},
+                "body": JSON.stringify({"search_value": search_input})
+            })
+            let json_data = await search_results.json();
+            console.log(json_data)
+        }
+    }   
+
+    async function initMap() {
+        map = new Map(document.getElementById("map"), map_options);
+        surgeons = await get_surgeons();
+        init_surgeon_markers();
+    }
+
+    
     initMap();
 }
 

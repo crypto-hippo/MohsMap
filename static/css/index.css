@@ -13,51 +13,21 @@ body {
     src: url("/static/fonts/GaramondPremrPro.otf") format("opentype");
 }
 
-.results-container:last-child {
-    top: 300px;
-}
-
-.modal-dialog {
-    max-width: -webkit-fill-available;
-    width: 90%;
-}
-
-.admin-update-spinner {
-    color: teal;
-}
-
-#edit-surgeon-modal {
-    width: 80%;
-}
-
-.detail-page-container {
-    margin-top: 10px;
-}
-
-.detail-page-title {
-    color: teal;
-}
-
 .mohsmap-title {
     padding-top: 5px;
 }
 
 body {
-    font-family: GaramondPremrPro !important;
+    font-family: Arial, Helvetica, sans-serif !important;
 }
 
 body * {
-    font-family: GaramondPremrPro !important;
+    font-family: Arial, Helvetica, sans-serif !important;
 }
 
 .nav-item.active a {
     font-weight: bold;
     color: teal !important;
-}
-
-.title {
-    margin: 20px;
-    font-size: 2em;
 }
 
 #map {
@@ -74,6 +44,7 @@ body * {
     font-style: italic;
     position: absolute;
     right: 100px;
+    font-family: GaramondPremrPro !important;
 }
 
 .pages-nav {
@@ -113,6 +84,13 @@ body * {
     font-size: 32px;
 }
 
+.popup-title {
+    font-size: 22px;
+}
+
+.popup-data {
+    font-size: 18px;
+}
 
 
 /* .modal.fade {
@@ -257,10 +235,6 @@ body .results-container:last-child {
 
 .fa-bars {
     color: #0686E5 !important;
-}
-
-.header-push {
-    height: 58px;
 }
 
 #search:focus {
