@@ -24,6 +24,12 @@ async function setup_map() {
         };
     }
 
+    function open_info_window(surgeon, marker) {
+        let info_window_content = create_popup_content(surgeon);
+        infoWindow.setContent(info_window_content);
+        infoWindow.open(map, marker);
+    }
+
     async function get_surgeons() {
         let resp = await fetch(`${base_url}/surgeon/get`);
         let surgeons = await resp.json();
@@ -48,9 +54,7 @@ async function setup_map() {
                 title: s.name_text,
             });
             next_marker.addListener("click", () => {
-                let info_window_content = create_popup_content(s);
-                infoWindow.setContent(info_window_content);
-                infoWindow.open(map, next_marker);
+                open_info_window(s);
             });
           
             markers.push(next_marker);
@@ -79,7 +83,29 @@ async function setup_map() {
                 "body": JSON.stringify({"search_value": search_input})
             })
             let json_data = await search_results.json();
-            console.log(json_data)
+            $('.results-container').empty();
+            json_data.forEach(s => {
+                let result = `<div class="result" data-lat="${s.lat}" data-lng="${s.lng}">${s.name_text}</div>`
+                $('.results-container').append(result);
+            });
+            $('.result').click(function(e) {
+                let lat = parseFloat(e.target.getAttribute("data-lat"));
+                let lng = parseFloat(e.target.getAttribute("data-lng"));
+                markers.forEach(m => {
+                    let m_lat = m.position.Fg;
+                    let m_lng = m.position.Gg;
+                    if (m_lat === lat && m_lng === lng) {
+                        let surgeon = surgeons.filter(s => {
+                            let s_lat = parseFloat(s.lat);
+                            let s_lng = parseFloat(s.lng);
+                            return s.name_text === e.target.innerText && s_lat === m_lat && s_lng === m_lng;
+                        })[0];
+                        map.setZoom(17)
+                        map.panTo(m.position);
+                        open_info_window(surgeon, m);
+                    }
+                });
+            })
         }
     }   
 
@@ -89,7 +115,6 @@ async function setup_map() {
         init_surgeon_markers();
     }
 
-    
     initMap();
 }
 

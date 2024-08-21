@@ -124,13 +124,32 @@ body * {
     background-color: darkblue;
 }
 
+.results-container::-webkit-scrollbar { 
+    display: none; 
+}
+
 .results-container .fas {
     margin-left: 10px;
     color: darkblue;
 }
 
+.results-container .result {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+    color: rgb(33, 3, 227);
+    border-bottom: 1px solid rgb(33, 3, 227);
+}
+
+.result:hover {
+    cursor: pointer;
+    background: rgb(33, 3, 227);
+    color: azure;
+}
+
 .num-results {
-    color: darkblue;
+    color: rgb(33, 3, 227);
     font-weight: bold;
     margin-left: 0;
 }
