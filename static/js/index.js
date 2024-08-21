@@ -1,7 +1,7 @@
 async function setup_map() {
     const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
     const { Map, InfoWindow } = await google.maps.importLibrary("maps");
-    const base_url = "http://localhost:5000" || "https://mohsmap.uc.r.appspot.com"
+    const base_url = "https://mohsmap.uc.r.appspot.com"
     let map;
     let marker_clusterer;
     let markers = []
