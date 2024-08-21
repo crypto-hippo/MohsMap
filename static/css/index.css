@@ -95,6 +95,17 @@ body * {
     color: #0686E5;
 }
 
+.detail-page-title {
+    margin-left: 20px;
+    margin-top: 20px;
+    font-size: 26px;
+    color: #0686E5;
+}
+
+.page-detail-content {
+    margin-left: 20px;
+    margin-top: 20px;
+}
 
 /* .modal.fade {
     z-index: 100;
@@ -272,6 +283,18 @@ body .results-container:last-child {
     color: white;
     background: blue;
     border: none !important;
+}
+
+.navbar-brand-title a {
+    color: white;
+}
+
+.patients-row {
+    margin-top: 52px;
+}
+
+.mohsmap-title, .last-updated {
+    margin-left: 20px;
 }
 
 @media screen and (max-width: 768px) {
