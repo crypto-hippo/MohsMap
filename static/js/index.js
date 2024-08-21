@@ -54,7 +54,7 @@ async function setup_map() {
                 title: s.name_text,
             });
             next_marker.addListener("click", () => {
-                open_info_window(s);
+                open_info_window(s, next_marker);
             });
           
             markers.push(next_marker);
@@ -63,6 +63,7 @@ async function setup_map() {
     }
 
     window.reset_map = function() {
+        $('.results-container').empty();
         markers.forEach(m => {
             m.setMap(null);
         });
@@ -89,7 +90,7 @@ async function setup_map() {
                 let result = `<div class="result" data-lat="${s.lat}" data-lng="${s.lng}">${s.name_text}</div>`
                 $('.results-container').append(result);
             });
-            
+
             $('.result').click(function(e) {
                 let lat = parseFloat(e.target.getAttribute("data-lat"));
                 let lng = parseFloat(e.target.getAttribute("data-lng"));
@@ -110,6 +111,13 @@ async function setup_map() {
             })
         }
     }   
+
+    window.onkeyup = function() {
+        let search_input = $("#search").val().trim();
+        if (search_input.length > 0) {
+            window.search();
+        }
+    }
 
     async function initMap() {
         map = new Map(document.getElementById("map"), map_options);

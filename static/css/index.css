@@ -85,11 +85,14 @@ body * {
 }
 
 .popup-title {
-    font-size: 22px;
+    font-size: 20px;
+    margin-bottom: 12px;
 }
 
 .popup-data {
-    font-size: 18px;
+    font-size: 16px;
+    margin-bottom: 6px;
+    color: #0686E5;
 }
 
 
