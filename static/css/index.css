@@ -8,6 +8,14 @@ body {
     overflow: hidden;
 }
 
+body.content {
+    overflow-y: scroll;
+}
+
+body.content .detail-page-container {
+    padding-bottom: 22px;
+}
+
 @font-face {
     font-family: GaramondPremrPro;
     src: url("/static/fonts/GaramondPremrPro.otf") format("opentype");
