@@ -1,7 +1,7 @@
 async function setup_map() {
     const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
     const { Map, InfoWindow } = await google.maps.importLibrary("maps");
-    const base_url = "https://mohsmap.uc.r.appspot.com"
+    const base_url = get_base_url();
     let map;
     let marker_clusterer;
     let markers = []
@@ -13,6 +13,14 @@ async function setup_map() {
         disableAutoPan: true,
     });
     
+    function get_base_url() {
+        if (document.URL.indexOf("localhost") > -1) {
+            return "http://localhost:5000";
+        } else {
+            return "https://mohsmap.uc.r.appspot.com"
+        }
+    }
+
     function get_map_options() {
         return {
             center: {
@@ -46,7 +54,7 @@ async function setup_map() {
         return divs;
     }
 
-    function init_surgeon_markers() {
+    async function init_surgeon_markers() {
         surgeons.forEach(s => {
             let next_marker = new AdvancedMarkerElement({
                 map: map,
@@ -59,7 +67,7 @@ async function setup_map() {
           
             markers.push(next_marker);
         })
-        marker_clusterer = new markerClusterer.MarkerClusterer({ markers, map });
+        marker_clusterer = await (new markerClusterer.MarkerClusterer({ markers, map }));
     }
 
     window.reset_map = function() {
@@ -123,6 +131,7 @@ async function setup_map() {
         map = new Map(document.getElementById("map"), map_options);
         surgeons = await get_surgeons();
         init_surgeon_markers();
+        $(".loading-overlay").removeClass("active")
     }
 
     initMap();

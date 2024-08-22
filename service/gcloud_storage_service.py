@@ -23,14 +23,18 @@ class GcloudStorageService:
         return zipcodes[0]
 
     @classmethod
-    def get_next_zipcode(cls, current_zipcode):
+    def get_next_zipcode(cls, current_zipcode, num_ahead):
+
         result = None
         zipcodes = cls.download_zip_codes()
         if zipcodes[-1] == current_zipcode:
             print("Last zipcode crawled. Chillin")
         else:
             current_index = zipcodes.index(current_zipcode)
-            result = zipcodes[current_index + 1]
+            try:
+                result = zipcodes[current_index + num_ahead]
+            except:
+                pass
         return result
 
     @classmethod

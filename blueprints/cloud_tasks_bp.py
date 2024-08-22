@@ -17,9 +17,9 @@ def start_crawl():
     """
     try:
         logging.info("[+] Fetching zip_codes.txt from Google Cloud Storage")
-        first_zip_code = GcloudStorageService.get_first_zip_code()
-        logging.info(f"[+] Creating gcloud http task with first zipcode: {first_zip_code}")
-        GcloudTasksService.create_zipcode_task(first_zip_code, 1)
+        # first_zip_code = GcloudStorageService.get_first_zip_code()
+        logging.info(f"[+] Creating gcloud http task with first zipcode: 06907")
+        GcloudTasksService.create_zipcode_task("06907", 1)
         return "success"
     except Exception:
         logging.error(traceback.format_exc())
@@ -99,7 +99,7 @@ def continue_crawl():
                 print(f"Surgeon does not exists: {surgeon['name_text']}. Inserting...")
                 FirestoreService.insert_surgeon(surgeon)
 
-        next_zipcode = GcloudStorageService.get_next_zipcode(current_zipcode)
+        next_zipcode = GcloudStorageService.get_next_zipcode(current_zipcode, 50)
         if next_zipcode:
             GcloudTasksService.create_zipcode_task(next_zipcode, 1)
         return "success"
