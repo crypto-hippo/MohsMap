@@ -106,7 +106,6 @@ async function setup_map() {
                     let m_lat = m.position.Fg;
                     let m_lng = m.position.Hg;
                     if (m_lat === lat && m_lng === lng) {
-                        console.log(m);
                         let surgeon = surgeons.filter(s => {
                             let s_lat = parseFloat(s.lat);
                             let s_lng = parseFloat(s.lng);

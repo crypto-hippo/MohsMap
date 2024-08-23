@@ -3,8 +3,3 @@ cron:
   url: /cloud_tasks/start_crawl/e86fc4d3b30d4f4f947f13c0a128377d
   schedule: every sunday 03:00
   timezone: America/New_York
-
-- description: "Start surgeon crawl but backwards"
-  url: /cloud_tasks/start_crawl_backwards/e86fc4d3b30d4f4f947f13c0a128377d
-  schedule: every sunday 03:00
-  timezone: America/New_York
