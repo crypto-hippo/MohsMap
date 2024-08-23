@@ -54,7 +54,7 @@ async function setup_map() {
         return divs;
     }
 
-    async function init_surgeon_markers() {
+    function init_surgeon_markers() {
         surgeons.forEach(s => {
             let next_marker = new AdvancedMarkerElement({
                 map: map,
@@ -67,7 +67,7 @@ async function setup_map() {
           
             markers.push(next_marker);
         })
-        marker_clusterer = await (new markerClusterer.MarkerClusterer({ markers, map }));
+        marker_clusterer = new markerClusterer.MarkerClusterer({ markers, map });
     }
 
     window.reset_map = function() {
@@ -104,13 +104,15 @@ async function setup_map() {
                 let lng = parseFloat(e.target.getAttribute("data-lng"));
                 markers.forEach(m => {
                     let m_lat = m.position.Fg;
-                    let m_lng = m.position.Gg;
+                    let m_lng = m.position.Hg;
                     if (m_lat === lat && m_lng === lng) {
+                        console.log(m);
                         let surgeon = surgeons.filter(s => {
                             let s_lat = parseFloat(s.lat);
                             let s_lng = parseFloat(s.lng);
                             return s.name_text === e.target.innerText && s_lat === m_lat && s_lng === m_lng;
                         })[0];
+                        console.log(surgeon);
                         map.setZoom(17)
                         map.panTo(m.position);
                         open_info_window(surgeon, m);
