@@ -17,7 +17,7 @@ async function setup_map() {
         if (document.URL.indexOf("localhost") > -1) {
             return "http://localhost:5000";
         } else {
-            return "https://mohsmap.uc.r.appspot.com"
+            return document.location.origin;
         }
     }
 

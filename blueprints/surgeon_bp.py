@@ -11,6 +11,11 @@ import json
 surgeon_bp = Blueprint('surgeon_bp', __name__, url_prefix='/surgeon')
 
 
+@surgeon_bp.route("/warmup", methods=["GET"])
+def warmup():
+    return "Hot!"
+
+
 @surgeon_bp.route("/get", methods=["GET"])
 def get_surgeons():
     try:
